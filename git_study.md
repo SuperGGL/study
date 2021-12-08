@@ -193,3 +193,151 @@ git config --global user.email xxx@xxx.com
 git commit -am "修改xxx文件"
 ```
 
+######  5.3.5 git reset
+
+`git reset`命令：用于回退版本，可以指定退回某一次提交的版本。
+
+`git reset [--soft | --mixed | --hard] [HEAD]`：语法格式
+
+`git reset [HEAD]`：--mixed为默认，可以不用带参数，用于重置暂存区的文件与上一次的提交(commit)保存一致，工作区文件内容保持不变。
+
+例：
+
+```git
+git reset HEAD^     #回退所有内容到上一个版本
+git reset HEAD^ hello.php     #回退hello.php文件的版本到上一个版本
+git reset 052e      #回退到指定版本
+```
+
+`git reset --soft HEAD`：--soft参数用于回退到某个版本
+
+例：
+
+```git
+git reset --soft HEAD~3   #回退上上上一个版本
+```
+
+`git reset --hard HEAD`：--hard参数撤销工作区中所有未提交的修改内容，将暂存区与工作区都回到上一次版本，并删除之前的所有信息提交。
+
+例：
+
+```git
+git reset --hard HEAD~3    #回退上上上个版本
+git reset --hard bae128    #回退到某个版本回退点之前的所有信息。
+git reset --hard origin/master  #将本地的状态回退到和远程的一样
+谨慎使用--hard参数，它会删除回退点之前的所有信息。
+```
+
+**HEAD参数说明**
+
+- HEAD 表示当前版本
+- HEAD^  上一个版本
+- HEAD^^  上上一个版本
+- HEAD^^^ 上上上一个版本     以此类推
+
+也可以使用~数字表示
+
+- HEAD~0 表示当前版本
+- HEAD~1 上一个版本
+- HEAD~2 上上一个版本        以此类推
+
+`git reset HEAD`命令：用于取消已缓存的内容。
+
+###### 5.3.6、git rm
+
+`git rm`该命令用于删除文件。
+
+`git rm <file>`：将文件从暂存区和工作区中删除。
+
+例：
+
+```git
+git rm runoob.txt   #从暂存区和工作区中删除runoob.txt文件
+
+如果删除之前修改过并且已经放到暂存区域的话，则必须要用强制删除选项 -f
+git rm -f runoob.txt   #强行从暂存区和工作区中删除修改后的runoob.txt文件
+```
+
+`git rm --cached <file>`：将文件从暂存区域移除，但任然希望保留在当前工作目录中，即从跟踪清单中删除，使用`--cached`选项即可。
+
+例：
+
+```git
+git rm --cached runoob.txt   #从暂存区中删除runoob.txt
+```
+
+可递归删除，如果后面跟的是一个目录做为参数，则会递归删除整个目录中的所有子目录和文件
+
+`git rm -r *`：进入某个目录中，执行此语句，会删除该目录下的所有文件和子目录。
+
+###### 5.3.7、git mv
+
+`git mv`命令用于移动或重命名一个文件、目录或软连接
+
+`git mv [file] [newfile]`
+
+`git mv -f [file] [newfile]`：新文件名已经存在，但还是要重命名它，可以使用`-f`参数。
+
+##### 6、提交日志
+
+###### 6.1、git log
+
+一般常用两个命令：
+
+- `git log`  查看历史提交记录
+- `git blame <file>` 以列表形式查看指定文件的历史修改记录 
+
+`git log --oneline`：可以查看历史记录的简洁的版本。
+
+`git log --graph`：--graph选项，查看历史中什么时候出现了分支、合并。
+
+`git log --reverse --oneline`：`--reverse`参数来逆向显示所有日志。
+
+`git log --author=name`：查找指定用户的提交日志。
+
+###### 6.2、git blame
+
+`git blame <file>`：如果要查看指定文件的修改记录。
+
+##### 7、远程操作
+
+###### 7.1、git remote命令
+
+用于在远程仓库的操作，Git远程仓库(Github)
+
+`Github`概念：是一个基于git的代码托管平台
+
+`git remote add [shortname] [url]`：添加一个新的远程仓库，可以指定一个简单的名字，以便将来引用。
+
+`git remote`：查看当前配置有哪些远程仓库。
+
+`git remote -v`：执行时加上-v参数，可以看到每个别名的实际链接地址。
+
+###### **提取远程仓库**：Git有两个命令用来提取远程仓库的更新。
+
+`1、git fetch`：从远程仓库下载新分支与数据，该命令执行完后需要执行`git merge`远程分支到你所在的分支。
+
+`2、git merge`：从远端仓库提取数据并尝试合并到当前分支。
+
+
+
+`git fetch origin`：`origin` 为远程地址的别名。
+
+`git fetch origin master`：从名为**origin**的远程上拉取名为**master**的分支到本地分支**origin/master**中，既然是拉取代码，当然需要同时指定远程名和分支名，室友分开写。
+
+`git merge origin/master`：合并名为**origin/master**的分支到当前所在的分支，既然是分支的合并，当然就与远程名没有直接关系，所以没有出现远程名，需要指定的是被合并的分支。
+
+**一次性拉取多个分支**：`git fetch master stable oldstable`
+
+**一次性合并多个分支**：`git merge origin/master hotfix-2775 hotfix-2276 hotfix-2290`
+
+###### **推送到远程仓库**
+
+`git push origin master`：推送本地的**master**分支到远程**orgin**，涉及到远程以及分支，所以分开写。
+
+
+
+`git remote rm [别名]`   : 删除远程仓库
+
+`git remote rename old_name new_name` ： 修改仓库名。
+
