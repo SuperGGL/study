@@ -43,30 +43,74 @@
 
 ​		 **git init** 命令来初始化一个 Git 仓库，在执行完成 **git init** 命令后，Git 仓库会生成一个 .git 目录，该目录包含了资源的所有元数据，其他的项目目录保持不变。
 
-​		git init  file  初始化后，会在file目录下出现一个名为.git的目录，所有git需要的数据和资源都存放在这个目录中。
+​		`git init  file`  初始化后，会在file目录下出现一个名为.git的目录，所有git需要的数据和资源都存放在这个目录中。
 
-例：git add *.c    将目录下以.c结尾的文件提交到仓库中。
+例：`git add *.c `   将目录下以.c结尾的文件提交到仓库中。
 
-​		git add README   将目录下README文件提交到仓库中。 
+​		`git add README`   将目录下`README`文件提交到仓库中。 
 
-​		git commit -m ”提交说明“ ，提交到仓库中，在linux中用单引号，在windows中用双引号。
+​		`git commit -m ”提交说明“ `，提交到仓库中，在linux中用单引号，在windows中用双引
 
-    ###### 	4.2、git clone
+###### 	4.2 git clone
 
-​		git clone \<repo\>	克隆仓库的命令   repo：Git仓库
+​		`git clone <repo>`	克隆仓库的命令   `repo`：Git仓库
 
-​		git clone \<repo\> \<directory\>  克隆到指定的目录， directory：本地目录。
+​		`git clone <repo> <directory>`  克隆到指定的目录， `directory`：本地目录。
 
-​		git clone git://github.com/schacon/grit.git   从网站上克隆Ruby 语言的 Git 代码仓库 Grit。执行该命令后，会在当前目录下创建一个名为grit的目录，其中包含一个 .git 的目录，用于保存下载下来的所有版本记录。
+​		`git clone git://github.com/schacon/grit.git`   从网站上克隆Ruby 语言的 Git 代码仓库 Grit。执行该命令后，会在当前目录下创建一个名为grit的目录，其中包含一个 .git 的目录，用于保存下载下来的所有版本记录。
 
-​		git clone git://github.com/schacon/grit.git mygrit 自定义项目目录名称，在命令末尾指定新的名字即可。
+​		`git clone git://github.com/schacon/grit.git mygrit` 自定义项目目录名称，在命令末尾指定新的名字即可，即重命名为`mygrit`。
 
 ###### 	4.3 配置
 
-​		git config --list  显示当前的git配置信息
+​		`git config --list`  显示当前的git配置信息
 
-​		git config -e  编辑git配置文件，针对当前仓库
+​		`git config -e`  编辑git配置文件，针对当前仓库
 
-​		git cinfig -e --global  针对系统上所有的仓库。
+​		`git cinfig -e --global`  针对系统上所有的仓库。
 
-​		
+​		设置提交代码时的用户信息(该步骤应在init后进行)：
+
+​			`git config --global user.name "名字"`  在创建仓库后，这一步在这之后做，之后才能做add等操作。
+
+​			`git config --global user.email xxx@xxx.com`   你的个人邮箱。
+
+##### 5、Git基本操作
+
+###### 5.1、6个基本命令
+
+`git clone		git push		git add		git commit		git checkout		git pull`
+
+ ![关系图](https://www.runoob.com/wp-content/uploads/2015/02/git-command.jpg)
+
+- workspace：工作区
+- staging area：暂存区/缓冲区
+- local repository：版本库或本地仓库
+- remote repository：远程仓库
+
+###### 5.2、创建仓库命令
+
+`git init`：初始化仓库。直接输入即可，在执行完成 **git init** 命令后，Git 仓库会生成一个 .git 目录，该目录包含了资源的所有元数据，其他的项目目录保持不变
+
+`git init  file`  初始化后，会在file目录下出现一个名为.git的目录，所有git需要的数据和资源都存放在这个目录中。
+
+`git clone`：拷贝一份远程仓库，也就是下载一个项目，拷贝一个 Git 仓库到本地，让自己能够查看该项目，或者进行修改。
+
+`git clone [url]`，拷贝项目命令格式，`[url]`是要拷贝的项目链接。该项目名通常就是该 URL 最后一个 / 之后的项目名称。
+
+`git clone [url] name`，对拷贝的项目重命名为name。
+
+`git clone <repo>`	克隆仓库的命令   `repo`：Git仓库
+
+`git clone <repo> <directory>`  克隆到指定的目录， `directory`：本地目录。
+
+###### 5.3、提交与修改
+
+Git的工作就是创建和保存你的项目的快照及与之后的快照进行对比。
+
+`git add`，可将文件添加到暂存区。
+
+`git add [file1] [file2] ...`，添加一个或多个文件到暂存区。
+
+`git add [dir]`，添加指定目录到暂存区，包括子目录。
+
