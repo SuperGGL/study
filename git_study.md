@@ -108,11 +108,88 @@
 
 Git的工作就是创建和保存你的项目的快照及与之后的快照进行对比。
 
-`git add`，可将文件添加到暂存区。
+###### 5.3.1 git add
+
+`git add`，其作用是将文件添加到暂存区。
 
 `git add [file1] [file2] ...`，添加一个或多个文件到暂存区。
 
 `git add [dir]`，添加指定目录到暂存区，包括子目录。
 
 `git add .`，添加当前目录下的所有文件到暂存区。
+
+###### 5.3.2 git status
+
+`git status`，该命令是用于查看在你上次提交之后是否有对文件进行再次修改。
+
+`git status -s`，通过-s参数获得简短的输出结果
+
+例：
+
+``` git
+$ git status -s
+AM README
+A  hello.php
+```
+
+文件的一些状态:
+
+`??`：新添加的未跟踪文件。
+
+`A`：新添加到暂存区中的文件前面有A标记。
+
+`M`: 修改过的文件前面有M标记。
+
+`M`：该M出现在左边，表示该文件被修改了并放入了暂存区。
+
+`M`：该M出现在右边，表示该文件被修改了但是还没放入暂存区。
+
+`MM`：该文件在工作区被修改并提交到暂存区后又在工作区中被修改
+
+`AM`：文件添加到缓存之后又有改动。
+
+###### 5.3.3 git diff
+
+`git diff`命令：比较文件的不同，即比较文件在暂存区和工作区的差异。
+
+`git diff`命令： 显示已写入暂存区和已被修改但尚未写入暂存区文件的区别。
+
+`git diff`两个主要的应用场景：
+
+- 尚未缓存的改动：`git diff`
+- 查看已缓存的改动：`git diff --cached`
+- 查看已缓存的与未缓存的所有改动：`git diff HEAD`
+- 显示重要而非整个diff：`git diff --stat`
+
+`git diff [file]`：显示file文件在暂存区和工作区的差异。
+
+`git diff --cached [file] | git diff --staged [file]`：显示file文件暂存区和上一次提交的差异。
+
+`git diff [first-branch]...[second-branch]`：显示两次提交之间的差异。
+
+###### 5.3.4 git commit
+
+在提交代码之前需要设置提交的用户信息，包括用户名和邮箱：
+
+```git
+git config --global user.name "用户名"
+git config --global user.email xxx@xxx.com
+去掉--global 参数只对当前仓库有效。 windows下是双引号。
+```
+
+`git commit`命令：将暂存区内容添加到本地仓库中。
+
+`git commit -m [message]`：提交暂存区到本地仓库中，[message]="提交说明"，在linux中用单引号，在windows中用双引号。
+
+`git commit [file1] [file2] ... -m [message]`：提交暂存区的指定文件到仓库区。
+
+`git commit -a` ： -a参数设置修改文件后不需要执行git add命令，直接来提交。
+
+例：
+
+```git
+修改了文件步骤*****
+直接执行以下
+git commit -am "修改xxx文件"
+```
 
